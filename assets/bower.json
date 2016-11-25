@@ -1,0 +1,27 @@
+{
+  "name": "Harshit Kudeshiya",
+  "authors": [
+    "Harshit Kudeshiya <kudeshiyah@gmail.com>"
+  ],
+  "description": "",
+  "main": "index.php",
+  "license": "MIT",
+  "homepage": "index.php",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.5.5",
+    "angular-sanitize": "^1.5.8",
+    "angular-messages": "^1.5.5",
+    "mousetrap": "^1.6.0",
+    "sumoselect": "^3.0.2",
+    "bootstrap": "^3.3.6",
+    "sweetalert": "^1.1.3",
+    "angular-ui-select": "^0.19.4"
+  }
+}
