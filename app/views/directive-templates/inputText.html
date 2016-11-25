@@ -1,0 +1,14 @@
+<div class="form-group inline "  style='width:100%'>
+    <label class="control-label">{{label}}</label>
+    <br>
+    <input ng-if="type==='text'" data-ng-model="property[value]" name='{{value}}' id='{{value}}' type="text"   style='width:100%' ng-required ='{{required}}' ng-disabled='{{disabled}}'>
+
+    <input ng-if="type==='email'" data-ng-model="property[value]" name='{{value}}' id='{{value}}' type="email"   style='width:100%' ng-required ='{{required}}'>
+
+    <input ng-if="type==='number'" data-ng-model="property[value]" ng-minlength='{{min}}' ng-maxlength='{{max}}'
+    name='{{value}}' id='{{value}}' type="number"   style='width:100%' ng-required ='{{required}}'>
+
+    <input ng-if="type==='date'" data-ng-model="property[value]" name='{{value}}' id='{{value}}' type="date"
+      style='width:100%' ng-required ='{{required}}' >
+</div>
+<div ng-transclude></div>

@@ -1,0 +1,78 @@
+<div class="container-fluid" style='padding:10px 50px;' ng-controller='StockController as ctrl'>
+  <div class="center-block" style='text-align:center; font-size:50px;' id='loader'>
+    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+  </div>
+  <div class="hide" id="page">
+    <div class="error" ng-class=" {'hide': addForm.notHasError} ">
+        <p class="error-text"> {{addForm.errorMsg}} </p>
+    </div>
+    <form novalidate id='add-stock-form' name='form' class='form-inline' role='form'>
+        <div class="row">
+
+            <h3 style="margin-left: 15px; color: #666; " class='heading-margin inline'>Product Details</h3>
+            <!-- <p style='margin:10px;' class='text-danger inline'>* fields are important</p> -->
+
+        </div>
+        <!-- <div class=" row">
+          <span class="col-md-3">
+            <ui-select ng-model="newStock.supplier">
+              <ui-select-match>
+                  <span ng-bind="$select.selected.firmName"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="supplier in (ctrl.suppliers | filter: $select.search) track by supplier.id">
+                  <span ng-bind="supplier.firmName"></span>
+              </ui-select-choices>
+            </ui-select>
+          </span>
+        </div> -->
+        <!-- <div class="row">
+          <input-text label='* Stock Name' value='name' property='newStock' required='true' type='text' class='inline col-md-6'>
+          </input-text>
+          <input-text label='* date' value='date' property='ctrl.products' required='true' type='date' class='inline col-md-3'>
+              <div class='inline' ng-messages="addStockForm.day.$error"
+                  ng-if='addStockForm.day.$dirty  || addStockForm.$submitted' role="alert">
+                  <div ng-message="required" class="text-danger">Day is required</div>
+                  <div ng-message="date" class="text-danger">date should number</div>
+              </div>
+          </input-text>
+        </div> -->
+        <!-- <div class="row">
+            <input-text label='Stock Description' value='description' property='newStock' requird='false' type='text' class='inline col-md-12'>
+            </input-text>
+        </div> -->
+          <div class="table-container">
+            <div class="row table-header">
+              <span class="col-md-1 no-padding">Id</span>
+              <span class="col-md-7 no-padding">Description</span>
+              <span class="col-md-1 no-padding">Unit</span>
+              <span class="col-md-1 no-padding">MRP</span>
+              <span class="col-md-1 no-padding">Price</span>
+              <span class="col-md-1 no-padding">Discount</span>
+            </div>
+            <div class="table-content" style="height: 269px;">
+              <div data-ng-repeat="item in ctrl.products.new" style="height: 27px; border-bottom:1px solid #999;">
+                  <span class="col-md-1 no-padding"><input ng-disabled='true' class='full-width' type="text" ng-model='item.productId'></span>
+                  <span class="col-md-7 no-padding"><input class='full-width' type="text" ng-model='item.description'></span>
+                  <span class="col-md-1 no-padding"><input class='full-width' type="text" ng-model='item.unit'></span>
+                  <span class="col-md-1 no-padding"><input class='full-width' type="text" ng-model='item.mrp'></span>
+                  <span class="col-md-1 no-padding"><input class='full-width' type="text" ng-model='item.price'></span>
+                  <span class="col-md-1 no-padding"><input class='full-width' type="text" ng-model='item.discount'></span>
+              </div>
+            </div>
+          </div>
+
+        <button
+            id="add-stock-form-submit"
+            class="btn btn-primary col-md-2 pull-right"
+            style='margin-top:10px; margin-right:20px;'
+            type="button"
+            data-ng-click="ctrl.save_stock()">Save</button>
+        <!-- <button
+            id="add-stock-form-submit"
+            class="btn btn-primary col-md-2 pull-right"
+            style='margin-top:10px; margin-right:20px;'
+            type="button"
+            data-ng-click="ctrl.saveStock_and_new(newStock)">Save and New</button> -->
+    </form>
+  </div>
+</div>

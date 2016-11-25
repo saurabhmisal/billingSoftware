@@ -1,0 +1,168 @@
+<div class="container-fluid" style='padding:10px 50px;'>
+    <div class="error" ng-class=" {'hide': addForm.notHasError} ">
+        <p class="error-text"> {{addForm.errorMsg}} </p>
+    </div>
+    <form novalidate id='add-customer-form' name='addCustomer' class='form-inline form-style' role='form'>
+    	<div class="row">
+    		<p style="margin-left: 15px;margin-top: 5px;" class='text-danger'>All * marked fields are required</p>
+            <div class="form-group inline col-md-4">
+                <label class="control-label">*UCN</label>
+                <br>
+                <input data-ng-model="newCustomer.id" name='customerId' id='id' type="text" class="form-control" style='width:100%' required>
+            </div>
+            <div class="form-group inline col-md-4">
+                <label class="control-label">*Customer Name</label>
+                <br>
+                <input data-ng-model="newCustomer.name" name='customerName' type="text" class="form-control" style='width:100%' required>
+            </div>
+            <div class="form-group inline col-md-4">
+                <label class="control-label">*Customer Shop Name</label>
+                <br>
+                <input data-ng-model="newCustomer.shopName" name='shopName' type="text" class="form-control" style='width:100%' required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group inline col-md-4">
+                <label class="control-label">*Phone</label>
+                <br>
+                <input data-ng-model="newCustomer.phone" name='phone' id='phone' type="number" class="form-control" style='width:100%' required>
+                <div ng-messages="addCustomer.phone.$dirty && addCustomer.phone.$error">
+                    <div class='text-danger' ng-message="number">It should be a Number.</div>
+                </div>
+            </div>
+            <div class="form-group inline col-md-4">
+                <label class="control-label">Email</label>
+                <br>
+                <input data-ng-model="newCustomer.email" name='email' id='email' type="email" class="form-control" style='width:100%'>
+            </div>
+            <div class="form-group inline col-md-4">
+                <label class="control-label">*City</label>
+                <br>
+                <input data-ng-model="newCustomer.city" name='city' type="text" class="form-control" style='width:100%' min='1' required>
+            </div>
+        </div>
+        
+      	<div class='row'>
+      		<button 
+            id="add-customer-form-submit" 
+            class="btn btn-primary col-md-2 pull-right" 
+            style='margin-top:10px; margin-right:20px;' 
+            type="button" 
+            data-ng-click="checkForm('add-customer-form')">Add Customer</button>
+      	</div>
+
+    </form>
+    
+    <div class="container">
+        <div class="row" style='margin-bottom:10px;'>
+            <form novalidate class='form-inline'>
+                <div>
+                    <div class="form-group col-md-11 search-bar-style">
+                        <label for="" class="label" style='background:none; color:#666;'>Search Customer:</label>
+                        <input style='width:50%' data-ng-model="searchCustomer" class='form-control' type="text" placeholder="Search Customer">
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <table class="table table-hover table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th><a href="" ng-click="orderByField='id'; reverseSort = !reverseSort">UCN </a></th>
+                    <th><a href="" ng-click="orderByField='name'; reverseSort = !reverseSort">Customer Name</a></th>
+                    <th><a href="" ng-click="orderByField='shopName'; reverseSort = !reverseSort">Shop Name</a></th>
+                    <th><a href="" ng-click="orderByField='phone'; reverseSort = !reverseSort">Phone</a></th>
+                    <th><a href="" ng-click="orderByField='email'; reverseSort = !reverseSort">Email</a></th>
+                    <th><a href="" ng-click="orderByField='city'; reverseSort = !reverseSort">City</a></th>
+                    <th>Added on</th>
+                    <th>Orders</th>
+                </tr>
+            </thead>
+            <tbody>
+              
+                <tr data-ng-repeat="customer in customers | filter: searchCustomer | orderBy:orderByField:reverseSort">
+                    <td>
+                        {{ customer.id }}
+                    </td>
+                    <td>
+                        {{ customer.name }}
+                    </td>
+                    <td>
+                        {{ customer.shopName }}
+                    </td>
+                    <td>
+                        {{ customer.phone }}
+                    </td>
+                    <td>
+                        {{ customer.email }}
+                    </td>
+                    <td>
+                        {{ customer.city }}
+                    </td>
+                    <td>
+                        {{ customer.date | date:'dd-MM-yyyy' }}
+                    </td>
+                    <td>
+                        <a href="#/customerorders/{{customer.row}}">View Ordrers</a>
+                        <button type="button" class="close" ng-click='removeRequest(customer.row)' aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type='button' class='close' ng-click="makeModel(customer)" aria-label="Edit"><span aria-hidden='true'>  &#x270E;</span></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="edit-customer-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="customer-modal-heading">Modal title</h4>
+      </div>
+      <div class="modal-body" id='customer-modal-body'>
+        <div class="error" ng-class="{'hide': editForm.notHasError}">
+            <p class="error-text"> {{editForm.errorMsg}} </p>
+        </div>
+        <div class="form-group">
+            <div class="label">Id</div>
+            <br>
+            <input type="text" id='edit-customer-id' class="form-control" ng-model='editCustomer.id'>
+        </div>
+        <div class="form-group">
+            <div class="label">Customer Name</div>
+            <br>
+            <input type="text" id='edit-customer-name' class="form-control" ng-model='editCustomer.name'>
+        </div>
+        <div class="form-group">
+            <div class="label">Shop Name</div>
+            <br>
+            <input type="text" id='edit-customer-shopName' class="form-control" ng-model='editCustomer.shopName'>
+        </div>
+        <div class="form-group">
+            <div class="label">Phone</div>
+            <br>
+            <input type="number" id='edit-customer-phone' class="form-control" ng-model='editCustomer.phone'>
+        </div>
+        <div class="form-group">
+            <div class="label">Email</div>
+            <br>
+            <input type="email" id='edit-customer-email' class="form-control" ng-model='editCustomer.email'>
+        </div>
+        <div class="form-group">
+            <div class="label">City</div>
+            <br>
+            <input type="text" id='edit-customer-city' class="form-control" ng-model='editCustomer.city'>
+        </div>
+      </div>
+      <input type='text' style='display:none;' id='customer-row'>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" ng-click='edit()'>Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

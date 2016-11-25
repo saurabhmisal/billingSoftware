@@ -1,0 +1,47 @@
+<div class="container">
+	<div style='margin-top:10px;' class="row" ng-cloak>
+		<div class="col-md-3">
+			<div class="well">
+				<div class='row' >
+					<span class='label col-xs-4' >Stock Id: </span>
+					<input type="text" disabled ng-blur="saveEdit(stock, 'id', stock.id)"  ng-model='stock.id' class='edit col-xs-7'>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="well">
+				<div class='row' >
+					<span class='label col-xs-4' >Stock Name: </span>
+					<input type="text" ng-blur="saveEdit(stock, 'name')"  ng-model='stock.name' class='edit col-xs-7'>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="well">
+				<div class='row' >
+					<span class='label col-xs-4' >Stock Price: </span>
+					<input type="text" ng-blur="saveEdit(stock, 'price')"  ng-model='stock.price' class='edit col-xs-7'>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<table class="table table-hover table-bordered" style='width:500x; margin:0px auto;'>
+			<thead>
+				<th>Qunatity</th>
+				<th>Date</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<tr ng-repeat='s in stock.ph'>
+					<td class='detail' >
+						<input type="text" ng-blur="saveEdit(s, 'quantity')"  ng-model='s.quantity' class='edit'></td>
+					<td>
+						<input type="text" ng-blur="saveEdit(s, 'date')"  ng-model='s.date' class='edit'>
+					</td>
+					<td><button type="button" class="close" ng-click='remove_stock_purchase_history(s)' aria-label="Close"><span aria-hidden="true">&times;</span></button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

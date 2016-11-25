@@ -1,0 +1,63 @@
+<div class="container">
+	<div style='margin-top:10px;' class="row">
+		<div class="col-md-2">
+			<div class="well">
+				<span class='label' >UCN: </span>
+				<span class='value' > {{customer.id}} </span>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="well">
+				<span class='label' >Name: </span>
+				<span class='value' > {{customer.name}} </span>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="well">
+				<span class='label' >Shop Name: </span>
+				<span class='value' > {{customer.shopName}} </span>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="well">
+				<span class='label' >Phone: </span>
+				<span class='value' > {{customer.phone}} </span>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="well">
+				<span class='label' >City: </span>
+				<span class='value' > {{customer.city}} </span>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="well">
+				<span class='label' >Email: </span>
+				<span class='value' > {{customer.email}} </span>
+			</div>
+		</div>		
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<table ng-init='doSum(order)' ng-repeat='order in orders ' class="table table-hover table-condensed table-bordered">
+			<thead>
+				<th>STOCK ID</th>
+				<th>NAME</th>
+				<th>PRICE</th>
+				<th>QUANTITY</th>
+				<th>TOTAL AMOUNT</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat='item in order'>
+					<td>{{item.id}}</td>
+					<td>{{item.name}}</td>
+					<td>{{item.price}}</td>
+					<td>{{item.quantity}}</td>
+					<td>{{item.total}}</td>
+				</tr>
+			</tbody>
+			<tr style='background:moccasin;'><td></td><td></td><td></td><td></td><td>Sum: {{order[order.length-1].sum}} </td></tr>
+		</table>
+	</div>
+</div>

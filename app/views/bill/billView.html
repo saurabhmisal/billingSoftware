@@ -1,0 +1,95 @@
+<div class="container-fluid" style='padding:10px 50px;' ng-controller='BillController as ctrl'>
+    <div class="error" ng-class=" {'hide': addForm.notHasError} ">
+        <p class="error-text"> {{addForm.errorMsg}} </p>
+    </div>
+    <div class="row" style='margin-bottom:10px;'>
+        <h2 class="pull-left">Fill invoce details</h2>
+        <div class="pull-right">
+          <a href="#/billList" class='btn btn-info btn-sm' role="button">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Bill list</a>
+          <a href="#/saleReturn" class='btn btn-info btn-sm' role="button">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Sale Return</a>
+        </div>
+    </div>
+    <hr>
+    <div  style='height:70px; margin-bottom:10px;'>
+        <form novalidate name='billForm' class='form-inline' role='form'>
+          <div class="form-group inline col-md-2 ">
+              <ui-select ng-model="ctrl.saleReturn.customer">
+                <ui-select-match placeholder='Select Customer'>
+                    <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="customer in (ctrl.customers | filter: $select.search)">
+                    <span ng-bind="customer.name"></span>
+                </ui-select-choices>
+              </ui-select>
+          </div>
+          <div class="form-group inline col-md-2 ">
+              <label class="control-label">*Date</label>
+              <br>
+              <input class='edit' data-ng-model="ctrl.bill.date" name='date' id='date' ng-minlength='10' ng-maxlength='10'
+              type="text" style='width:100%' ng-required ='true'>
+              <div class="help-block" ng-messages="billForm.date.$error" ng-if="billForm.date.$touched">
+                  <p class='text-danger' ng-message="minlength">Invalid Number</p>
+                  <p class='text-danger' ng-message="maxlength">Invalid Number</p>
+                  <p class='text-danger' ng-message="required">Date cannout be empty</p>
+              </div>
+          </div>
+          <div class="form-group inline col-md-2 ">
+              <label class="control-label">Vch No</label>
+              <br>
+              <input data-ng-model="ctrl.bill.vchNo" name='vchNo' id='vchNo' type="text" ng-disabled='true'  style='width:100%' ng-required ='fasle'>
+          </div>
+        </form>
+    </div>
+    <!-- {{ctrl.bill}} -->
+    <div class="table-container">
+      <div class="row table-header">
+        <span class='col-md-1 no-padding'>S. No</span>
+        <span class='col-md-2 no-padding'>Product</span>
+        <span class='col-md-1 no-padding'>Quantity</span>
+        <span class='col-md-1 no-padding'>Unit</span>
+        <span class='col-md-1 no-padding'>MRP</span>
+        <span class='col-md-1 no-padding'>Price</span>
+        <span class='col-md-1 no-padding'>Discount</span>
+        <span class='col-md-1 no-padding'>Net Amount</span>
+      </div>
+      <div class="table-content" style="height: 269px;">
+        <div data-ng-repeat="item in ctrl.bill.items" style="height: 27px; border-bottom:1px solid #999;">
+          <!-- {{item}} -->
+            <span class="col-md-1 no-padding bill-prop">{{$index+1}}</span>
+            <span class='col-md-2 no-padding'>
+              <ui-select ng-model="item.product">
+                <ui-select-match placeholder='Select supplier'>
+                    <span ng-bind="$select.selected.description"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="product in (ctrl.stocks | filter: $select.search)">
+                    <span ng-bind="product.description"></span>
+                </ui-select-choices>
+              </ui-select>
+            </span>
+            <span class='col-md-1 no-padding'>
+              <input class='full-width' type="text" ng-model='item.pQuantity' ng-keyup='ctrl.find_net_amount(item)' >
+            </span>
+            <span class='col-md-1 no-padding'>{{item.product.unit}}</span>
+            <span class='col-md-1 no-padding'>{{item.product.mrp}}</span>
+            <span class='col-md-1 no-padding'>{{item.product.price}}</span>
+            <span class='col-md-1 no-padding'>{{item.product.discount}}</span>
+            <span class='col-md-1 no-padding'>{{item.total}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <span class='col-md-1'></span>
+      <span class='col-md-2'></span>
+      <span class='col-md-1' style="margin-left:5px; font-weight:bold;">{{ctrl.bill.totalQty  | currency : ""}}</span>
+      <span class='col-md-4'></span>
+      <span class='col-md-1' style="margin-left:5px; font-weight:bold;">{{ctrl.bill.netAmount  | currency : ""}}</span>
+    </div>
+    <div class="row" style="margin-top:20px;">
+      <button type="submit" class="btn btn-primary col-md-2 pull-right" style="margin-right:30px;"
+        ng-click='ctrl.save()'>Save</button>
+      <button type="submit" class="btn btn-primary col-md-2 pull-right" style="margin-right:30px;"
+        ng-click='ctrl.save_and_print()'>Save and Print</button>
+    </div>
+</div>

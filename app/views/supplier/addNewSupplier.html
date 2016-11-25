@@ -1,0 +1,107 @@
+<div class="container-fluid" style='margin:10px 0px; ' ng-controller='SupplierController as ctrl'>
+    <div class="error" ng-class=" {'hide': ctrl.forms.addSupplier.notHasError} ">
+        <p class="error-text"> {{ctrl.forms.addSupplier.errorMsg}} </p>
+    </div>
+    {{ctrl.suppliers.new}}
+    <form novalidate name='form' class='form-inline' role='form' style="width: 700px;display: block;margin: 0px auto;padding: 10px 20px;border: 2px solid #aaa;border-radius: 3px;">
+        <div class="row">
+
+            <h3 style="margin-left: 15px; color: #666; " class='heading-margin inline'>Supplier Details</h3>
+            <p style='margin:10px;' class='text-danger inline'>* fields are important</p>
+
+        </div>
+        <div class="row">
+            <input-text
+              label='* Id'
+              value='id'
+              property='ctrl.suppliers.new'
+              required='true'
+              type='text'
+              disabled='true'
+              class='inline col-md-3'>
+              <div class='inline' ng-messages="form.id.$error"
+                  ng-if='form.id.$invalid && form.id.$touched || form.$submitted' role="alert">
+                  <div ng-message="required" class="text-danger">Supplier Id is Required</div>
+              </div>
+            </input-text>
+            <input-text
+              label=' TIN'
+              value='tin'
+              property='ctrl.suppliers.new'
+              required='false'
+              type='text'
+              class='inline col-md-3'>
+            </input-text>
+            <input-text
+              label='Email'
+              value='email'
+              property='ctrl.suppliers.new'
+              required='false'
+              type='email'
+              class='inline col-md-6'>
+              <div class='inline' ng-messages="form.email.$error"
+                  ng-if='form.email.$invalid && form.email.$touched  || form.$submitted' role="alert">
+                  <div ng-message="email" class="text-danger">Invalid Email</div>
+              </div>
+            </input-text>
+          </div>
+          <div class="row">
+            <input-text
+              label='Mobile'
+              value='mobile'
+              property='ctrl.suppliers.new'
+              required='false'
+              type='text'
+              class='inline col-md-6'>
+            </input-text>
+            <input-text
+              label='Phone'
+              value='phone'
+              property='ctrl.suppliers.new'
+              required='false'
+              type='number'
+              class='inline col-md-6'>
+            </input-text>
+          </div>
+          <div class="row">
+            <input-text
+              label='Distributor Name'
+              value='distributorName'
+              property='ctrl.suppliers.new'
+              required='false'
+              type='text'
+              class='inline col-md-6'>
+            </input-text>
+            <input-text
+              label='* Firm Name'
+              value='firmName'
+              property='ctrl.suppliers.new'
+              required='true'
+              type='text'
+              class='inline col-md-6'>
+              <div class='inline' ng-messages="form.firmName.$dirty && form.firmName.$error" role="alert">
+                  <div ng-message="required" class="text-danger">Firm Name is Required</div>
+              </div>
+            </input-text>
+        </div>
+        <div class="row">
+            <input-text label= 'Address' value='address' property='ctrl.suppliers.new' requird='false' type='text' class='inline col-md-12'>
+            </input-text>
+        </div>
+        <div class="row">
+          <button
+              id="add-stock-form-submit"
+              class="btn btn-primary col-md-2 pull-right"
+              style='margin-top:10px; margin-right:20px;'
+              type="submit"
+              data-ng-click="ctrl.insert()">Save</button>
+          <button
+              id="add-stock-form-submit"
+              class="btn btn-primary col-md-2 pull-right"
+              style='margin-top:10px; margin-right:20px;'
+              type="submit"
+              data-ng-click="ctrl.insert_and_new()">Save and New</button>
+        </div>
+
+    </form>
+</div>

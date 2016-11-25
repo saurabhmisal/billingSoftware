@@ -1,0 +1,32 @@
+.search-box{
+  width: 150px;
+  position: relative;
+}
+.search-box>input.search{
+  width: 98%;
+}
+.search-box>ul.search-result{
+  position: absolute;;
+  width: 99%;
+  background: #efefef;
+  border: 1px solid #ddd;
+  border-top: none;
+  z-index: 1;
+  list-style: none;
+  padding: 0px;
+}
+ul.search-result>li{
+  padding:1px 5px;
+  border-top: 1px solid #ddd;
+  margin: 0px;
+}
+ul.search-result>li:hover{
+  background: #ddd;
+  cursor: pointer;
+}
+.hide{
+  display: none;
+}
+.selected{
+    background: #ddd;
+}

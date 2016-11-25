@@ -1,0 +1,103 @@
+<div class="container-fluid" style='padding:10px 50px;' ng-controller='BillController as ctrl'>
+  <div>
+      <div class="container">
+            <div class="row" style='margin-bottom:10px;'>
+                <form novalidate class='form-inline'>
+                    <div class="form-group col-md-6">
+                        <label for="" class="label" style='background:none; color:#666;'>Search Bill:</label>
+                        <input style="width: 400px;border-radius: 0px;height: 25px;" data-ng-model="searchStock" class='form-control' type="text" placeholder="Search Products">
+                    </div>
+                </form>
+            </div>
+            <table class="table table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th><a href="" ng-click="orderByField='id'; reverseSort = !reverseSort">S.No.</a></th>
+                        <th><a href="" ng-click="orderByField='name'; reverseSort = !reverseSort">Voucher Number</a></th>
+                        <th><a href="" ng-click="orderByField='name'; reverseSort = !reverseSort">Date</a></th>
+                        <th><a href="" ng-click="orderByField='name'; reverseSort = !reverseSort">Amount</a></th>
+                        <th><a href="" ng-click="orderByField='name'; reverseSort = !reverseSort">Total Products</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="bill in ctrl.bills | filter: searchStock | orderBy:orderByField:reverseSort">
+
+                        <td>
+                            {{ $index+1}}
+                        </td>
+                        <td>
+                            {{ bill.vchNo }}
+                        </td>
+                        <td>
+                            {{ bill.date }}
+                        </td>
+                        <td>
+                            {{ bill.netAmount }}
+                        </td>
+                        <td>
+                            {{ bill.totalQty }}
+                        </td>
+                        <td>
+                            <!-- <a href="#/bill/{{stock.sId}}">View History</a> -->
+                            <button ng-click='ctrl.show_bill_details(bill.vchNo)'>
+                              <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></button>
+                            <!-- <button type="button" class="close" ng-click='remove_product(product.productId)' aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="bill-detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Bill Details</h4>
+            <div class="row">
+              <span class="col-md-4">Voucher Number:- {{ctrl.selectedBill.vchNo}}</span>
+              <span class="col-md-4">Total Amount:- {{ctrl.selectedBill.netAmount}}</span>
+              <!-- <span class="col-md-4">Voucher Number:- {{ctrl.selectedBill.voucherNumber}}</span> -->
+            </div>
+          </div>
+          <div class="modal-body">
+            <table class="table table-hover table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th><a href="" ng-click="orderByField='id'; reverseSort = !reverseSort">S.No.</a></th>
+                        <th><a href="" ng-click="orderByField='name'; reverseSort = !reverseSort">Product</a></th>
+                        <th><a href="" ng-click="orderByField='name'; reverseSort = !reverseSort">Unit</a></th>
+                        <th><a href="" ng-click="orderByField='name'; reverseSort = !reverseSort">Quantity</a></th>
+                        <th><a href="" ng-click="orderByField='name'; reverseSort = !reverseSort">Total</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="pu in ctrl.selectedBill.purchase | filter: searchStock | orderBy:orderByField:reverseSort">
+
+                        <td>
+                            {{ $index+1}}
+                        </td>
+                        <td>
+                            {{ pu.product.description }}
+                        </td>
+                        <td>
+                            {{ pu.product.unit }}
+                        </td>
+                        <td>
+                            {{ pu.pQuantity }}
+                        </td>
+                        <td>
+                            {{ pu.total }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>

@@ -1,0 +1,70 @@
+<div class="container-fluid" style='margin:10px 0px; ' ng-controller='SupplierController as ctrl'>
+    <div class="error" ng-class=" {'hide': ctrl.forms.addSupplier.notHasError} ">
+        <p class="error-text"> {{ctrl.forms.addSupplier.errorMsg}} </p>
+    </div>
+    <form novalidate name='form' class='form-inline' role='form' style="width: 700px;display: block;margin: 0px auto;padding: 10px 20px;border: 2px solid #aaa;border-radius: 3px;">
+        <div class="row">
+
+            <h3 style="margin-left: 15px; color: #666; " class='heading-margin inline'>Supplier Details</h3>
+            <p style='margin:10px;' class='text-danger inline'>* fields are important</p>
+
+        </div>
+        {{form.$valid}}
+        <div class="row">
+          <div class="col-md-3 form-group inline">
+            <label class="control-label">Id</label><br>
+            <input type="text" ng-disabled='true' ng-model='ctrl.supplier.id'>
+          </div>
+          <div class="col-md-3 form-group inline">
+            <label class="control-label">TIN</label><br>
+            <input type="text" ng-model='ctrl.supplier.tin' class="full-width">
+          </div>
+          <div class="col-md-6 form-group inline">
+            <label class="control-label">Email</label><br>
+            <input type="email" name='email' ng-model='ctrl.supplier.email' class="full-width">
+            <div class='inline'
+              ng-messages="form.email.$dirty && form.email.$error"
+              ng-if=' form.email.$dirty && form.email.$error || firm.$submitted' >
+                <div ng-message="email" class="text-danger">Invalid Email</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 form-group inline">
+            <label class="control-label">Mobile</label><br>
+            <input type="text" ng-model='ctrl.supplier.mobile' class="full-width">
+          </div>
+          <div class="col-md-6 form-group inline">
+            <label class="control-label">Phone</label><br>
+            <input type="text" ng-model='ctrl.supplier.phone' class="full-width">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 form-group inline">
+            <label class="control-label">Distributor Name</label><br>
+            <input type="text" ng-model='ctrl.supplier.distributorName' class="full-width">
+          </div>
+          <div class="col-md-6 form-group inline">
+            <label class="control-label">Firm Name</label><br>
+            <input type="text" name='firmName' ng-required='true' ng-model='ctrl.supplier.firmName' class="full-width">
+            <div class='inline' ng-messages="form.firmName.$dirty && form.firmName.$error" ng-if=' form.firmName.$dirty && form.firmName.$error || firm.$submitted' role="alert">
+                <div ng-message="required" class="text-danger">Firm Name is Required</div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 form-group inline">
+            <label class="control-label">Address</label><br>
+            <input type="text" ng-model='ctrl.supplier.addess' class="full-width">
+          </div>
+        </div>
+        <div class="row">
+          <button
+              class="btn btn-primary col-md-2 pull-right"
+              style='margin-top:10px; margin-right:20px;'
+              type="submit"
+              data-ng-click="ctrl.update()">Update</button>
+        </div>
+
+    </form>
+</div>

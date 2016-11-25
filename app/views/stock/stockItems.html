@@ -1,0 +1,120 @@
+<div class="container-fluid" style='padding:10px 50px;' ng-controller='StockController as ctrl'>
+  <div class="container">
+          <div class="row" style='margin-bottom:10px;'>
+            <div class="col-md-4">
+              <span class="label">Product Id</span>
+              <input type="text" disabled ng-blur="saveEdit(ctrl.stock.sId, 'sId', ctrl.stock.id)"
+               ng-model='ctrl.stock.productId' class='edit border-bottom-dashed'>
+            </div>
+            <div class="col-md-8">
+              <span class="label">Description</span>
+              <input type="text" disabled ng-blur="saveEdit(ctrl.stock.sId, 'name', ctrl.stock.name)"  ng-model='ctrl.stock.description' class='edit border-bottom-dashed'>
+            </div>
+          </div>
+          <div class="row" style='margin-bottom:10px;'>
+            <div class="col-md-3">
+              <span class="label">Unit of Measure</span><br>
+              <input type="text" disabled ng-blur="saveEdit(ctrl.stock.sId, 'name', ctrl.stock.name)"  ng-model='ctrl.stock.unit' class='edit border-bottom-dashed'>
+            </div>
+            <div class="col-md-3">
+              <span class="label">MRP</span><br>
+              <input type="text" disabled ng-blur="saveEdit(ctrl.stock.sId, 'sId', ctrl.stock.id)"
+               ng-model='ctrl.stock.mrp' class='edit border-bottom-dashed'>
+            </div>
+            <div class="col-md-3">
+              <span class="label">Price</span><br>
+              <input type="text" disabled ng-blur="saveEdit(ctrl.stock.sId, 'name', ctrl.stock.name)"  ng-model='ctrl.stock.price' class='edit border-bottom-dashed'>
+            </div>
+            <div class="col-md-3">
+              <span class="label">Quantity</span><br>
+              <input type="text" disabled ng-blur="saveEdit(ctrl.stock.sId, 'name', ctrl.stock.name)"  ng-model='ctrl.stock.quantity' class='edit border-bottom-dashed'>
+            </div>
+          </div>
+      </div>
+
+    <!-- Nav tabs -->
+  <section class="tabable" ng-init='tab=1'>
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href ng-click='tab=1' aria-controls="home" role="tab" data-toggle="tab">Purchase</a></li>
+      <li role="presentation"><a href ng-click='tab=2' aria-controls="profile" role="tab" data-toggle="tab">Purchase Return</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="home" ng-show='tab===1'>
+        <div class="table-container">
+          <div class="row table-header">
+            <span class='col-md-2 no-padding'>Date</span>
+            <span class='col-md-2 no-padding'>Invoice</span>
+            <span class='col-md-3 no-padding'>Supplier Name</span>
+            <span class='col-md-1 no-padding'>Quantity</span>
+            <span class='col-md-1 no-padding'>Rate</span>
+            <span class='col-md-1 no-padding'>Tax</span>
+            <span class='col-md-1 no-padding'>Total</span>
+            <span class='col-md-1 no-padding'></span>
+          </div>
+          <!-- {{ctrl.purchase.new}} -->
+          <div class="table-content" style="height: 269px;">
+            <div data-ng-repeat="item in ctrl.purchase.list" style="height: 27px; border-bottom:1px solid #999;">
+                <span class="col-md-2 no-padding">
+                  <input type="text" ng-model='item.date' class='full-width' ng-disabled='true'>
+                </span>
+                <span class="col-md-2 no-padding">
+                  <input type="text" ng-model='item.invoice' class='full-width' ng-disabled='true'>
+                </span>
+                <span class="col-md-3 no-padding">
+                  <input type="text" ng-model='item.firmName' class='full-width' ng-disabled='true'>
+                </span>
+                <span class="col-md-1 no-padding"><input ng-disabled='true' class='full-width' type="text" ng-model='item.quantity'></span>
+                <span class="col-md-1 no-padding"><input ng-disabled='true' class='full-width' type="text" ng-model='item.rate'></span>
+                <span class="col-md-1 no-padding"><input ng-disabled='true' class='full-width' type="text" ng-model='item.tax'></span>
+                <span class="col-md-1 no-padding"><input ng-disabled='true' class='full-width' type="text" ng-model='item.total'></span>
+                <span class="col-md-1 no-padding"><img
+                  src="app/images/ic_delete_forever_black_24dp_1x.png"
+                  alt="Delete"
+                  title="Delete"
+                  class='link'
+                  ng-click='ctrl.remove_purchase_history(item)' /></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane active" id="profile" ng-show='tab===2'>
+        <div class="table-container">
+          <div class="row table-header">
+            <span class='col-md-2 no-padding'>Date</span>
+            <span class='col-md-2 no-padding'>Invoice</span>
+            <span class='col-md-3 no-padding'>Supplier Name</span>
+            <span class='col-md-1 no-padding'>Quantity</span>
+            <span class='col-md-1 no-padding'>Rate</span>
+            <span class='col-md-2 no-padding'>Total</span>
+            <span class='col-md-1 no-padding'></span>
+          </div>
+          <!-- {{ctrl.purchase.new}} -->
+          <div class="table-content" style="height: 269px;">
+            <div data-ng-repeat="item in ctrl.purchaseReturn.list" style="height: 27px; border-bottom:1px solid #999;">
+                <span class="col-md-2 no-padding">
+                  <input type="text" ng-model='item.date' class='full-width' ng-disabled='true'>
+                </span>
+                <span class="col-md-2 no-padding">
+                  <input type="text" ng-model='item.invoice' class='full-width' ng-disabled='true'>
+                </span>
+                <span class="col-md-3 no-padding">
+                  <input type="text" ng-model='item.firmName' class='full-width' ng-disabled='true'>
+                </span>
+                <span class="col-md-1 no-padding"><input ng-disabled='true' class='full-width' type="text" ng-model='item.quantity'></span>
+                <span class="col-md-1 no-padding"><input ng-disabled='true' class='full-width' type="text" ng-model='item.rate'></span>
+                <span class="col-md-2 no-padding"><input ng-disabled='true' class='full-width' type="text" ng-model='item.total'></span>
+                <span class="col-md-1 no-padding"><img
+                  src="app/images/ic_delete_forever_black_24dp_1x.png"
+                  alt="Delete"
+                  title="Delete"
+                  class='link'
+                  ng-click='ctrl.remove_purchase_return_history(item)' /></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,100 @@
+
+<div class="container-fluid" style='padding:10px 50px;' ng-controller='PurchaseReturnController as ctrl'>
+  <div class="center-block" style='text-align:center; font-size:50px;' id='loader'>
+    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+  </div>
+  <div class="hide" id='page'>
+   <div class="error" ng-if=" ctrl.form.error ">
+        <p class="error-text"> {{ctrl.form.msg}} </p>
+    </div>
+    <div style='padding:5px 20px 60px 20px'>
+        <form novalidate id='add-purchase-form' name='form' class='form-inline' role='form'>
+          {{form.$valid}}
+            <div class="row">
+
+                <h3 style="margin-left: 15px; color: #666;" class='heading-margin inline'>Add Purchase</h3>
+                <p style='margin:10px;' class='text-danger inline'>*All fields are important</p>
+
+            </div>
+            <div class="row">
+              <input-text label='*Refrence Invoce No.' value='invoice' property='ctrl.purchaseReturn' required='true' type='text' class='inline col-md-2'>
+                  <div class='inline' ng-messages="addStockForm.day.$error"
+                      ng-if='addStockForm.day.$dirty  || addStockForm.$submitted' role="alert">
+                      <div ng-message="required" class="text-danger">Day is required</div>
+                      <div ng-message="date" class="text-danger">date should number</div>
+                  </div>
+              </input-text>
+              <div class="col-md-3">
+                <label class="control-label">* Select Supplier</label>
+                <ui-select ng-model="ctrl.purchaseReturn.supplier">
+                  <ui-select-match placeholder='Select supplier'>
+                      <span ng-bind="$select.selected.firmName"></span>
+                  </ui-select-match>
+                  <ui-select-choices repeat="supplier in (ctrl.suppliers | filter: $select.search) track by supplier.id">
+                      <span ng-bind="supplier.firmName"></span>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+              <input-text label='* date' value='date' property='ctrl.purchaseReturn' required='true' type='text' class='inline col-md-2'>
+                  <div class='inline' ng-messages="addStockForm.day.$error"
+                      ng-if='addStockForm.day.$dirty  || addStockForm.$submitted' role="alert">
+                      <div ng-message="required" class="text-danger">Day is required</div>
+                      <div ng-message="date" class="text-danger">date should number</div>
+                  </div>
+              </input-text>
+            </div>
+            <!-- {{ctrl.purchase}} -->
+            <div class="table-container">
+              <div class="row table-header">
+                <span class="col-md-2 no-padding">Select product</span>
+                <span class="col-md-4 no-padding">Description</span>
+                <span class="col-md-1 no-padding">Unit</span>
+                <span class="col-md-1 no-padding">Price</span>
+                <span class="col-md-1 no-padding">Quantity</span>
+                <span class="col-md-1 no-padding">Rate</span>
+                <span class="col-md-2 no-padding">Total</span>
+              </div>
+              <!-- {{ctrl.purchase.new}} -->
+              <div class="table-content" style="height: 269px;">
+                <div data-ng-repeat="item in ctrl.purchaseReturn.items" style="height: 27px; border-bottom:1px solid #999;">
+                    <span class="col-md-2 no-padding">
+                      <ui-select ng-model="item.product">
+                        <ui-select-match placeholder='Select Product'>
+                            <span ng-bind="$select.selected.description"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="product in (ctrl.stocks | filter: $select.search) track by product.productId">
+                            <span>{{product.description}}, {{product.unit}}</span>
+                        </ui-select-choices>
+                      </ui-select>
+                    </span>
+                    <span class="col-md-4 no-padding"><input ng-disabled='true' class='full-width' type="text" ng-model='item.product.description'></span>
+                    <span class="col-md-1 no-padding"><input ng-disabled='true' class='full-width' type="text" ng-model='item.product.unit'></span>
+                    <span class="col-md-1 no-padding"><input ng-disabled='true' class='full-width' type="text" ng-model='item.product.price'></span>
+                    <span class="col-md-1 no-padding"><input class='full-width' type="text" ng-model='item.quantity'></span>
+                    <span class="col-md-1 no-padding"><input ng-keyup='ctrl.find_net_amount(item)' class='full-width' type="text" ng-model='item.rate'></span>
+                    <span class="col-md-2 no-padding"><input ng-disabled='true' class='full-width' type="text" ng-model='item.total'></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <span class='col-md-8'></span>
+              <span class='col-md-1' style="margin-left:5px; font-weight:bold;">{{ctrl.purchaseReturn.totalQty  | currency : ""}}</span>
+              <span class='col-md-offset-1 col-md-1' style=" font-weight:bold;">{{ctrl.purchaseReturn.netAmount  | currency : ""}}</span>
+            </div>
+
+            <button
+                id="add-stock-form-submit"
+                class="btn btn-primary col-md-2 pull-right"
+                style='margin-top:10px; margin-right:20px;'
+                type="button"
+                data-ng-click="ctrl.save_purchase_return()">Save</button>
+            <!-- <button
+                id="add-stock-form-submit"
+                class="btn btn-primary col-md-2 pull-right"
+                style='margin-top:10px; margin-right:20px;'
+                type="button"
+                data-ng-click="ctrl.savePurchase_and_new(stockPurchase)">Save and New</button> -->
+        </form>
+    </div>
+  </div>
+</div>
